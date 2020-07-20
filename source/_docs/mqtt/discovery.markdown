@@ -71,7 +71,6 @@ In the value of configuration variables ending with `_topic`, `~` will be replac
 Configuration variable names in the discovery payload may be abbreviated to conserve memory when sending a discovery message from memory constrained devices.
 
 Supported abbreviations:
-
 ```txt
     'act_t':               'action_topic',
     'act_tpl':             'action_template',
@@ -255,7 +254,6 @@ Supported abbreviations:
 ```
 
 Supported abbreviations for device registry configuration:
-
 ```txt
     'cns':                 'connections',
     'ids':                 'identifiers',
@@ -265,7 +263,7 @@ Supported abbreviations for device registry configuration:
     'sw':                  'sw_version',
 ```
 
-## Support by third-party tools
+### Support by third-party tools
 
 The following software has built-in support for MQTT discovery:
 
@@ -278,9 +276,9 @@ The following software has built-in support for MQTT discovery:
 - [Zwave2Mqtt](https://github.com/OpenZWave/Zwave2Mqtt) (starting with 2.0.1)
 - [IOTLink](https://iotlink.gitlab.io) (starting with 2.0.0)
 
-## Examples
+### Examples
 
-### Motion detection (binary sensor)
+#### Motion detection (binary sensor)
 
 A motion detection device which can be represented by a [binary sensor](/integrations/binary_sensor.mqtt/) for your garden would send its configuration as JSON payload to the Configuration topic. After the first message to `config`, then the MQTT messages sent to the state topic will update the state in Home Assistant.
 
@@ -291,22 +289,21 @@ A motion detection device which can be represented by a [binary sensor](/integra
 To create a new sensor manually. For more details please refer to the [MQTT testing section](/docs/mqtt/testing/).
 
 ```bash
-mosquitto_pub -h 127.0.0.1 -p 1883 -t "homeassistant/binary_sensor/garden/config" -m '{"name": "garden", "device_class": "motion", "state_topic": "homeassistant/binary_sensor/garden/state"}'
+$ mosquitto_pub -h 127.0.0.1 -p 1883 -t "homeassistant/binary_sensor/garden/config" -m '{"name": "garden", "device_class": "motion", "state_topic": "homeassistant/binary_sensor/garden/state"}'
 ```
-
 Update the state.
 
 ```bash
-mosquitto_pub -h 127.0.0.1 -p 1883 -t "homeassistant/binary_sensor/garden/state" -m ON
+$ mosquitto_pub -h 127.0.0.1 -p 1883 -t "homeassistant/binary_sensor/garden/state" -m ON
 ```
 
 Delete the sensor by sending an empty message.
 
  ```bash
-mosquitto_pub -h 127.0.0.1 -p 1883 -t "homeassistant/binary_sensor/garden/config" -m ''
+$ mosquitto_pub -h 127.0.0.1 -p 1883 -t "homeassistant/binary_sensor/garden/config" -m ''
 ```
 
-### Sensors with multiple values
+#### Sensors with multiple values
 
 Setting up a sensor with multiple measurement values requires multiple consecutive configuration topic submissions.
 
@@ -316,7 +313,7 @@ Setting up a sensor with multiple measurement values requires multiple consecuti
 - Configuration payload no2: `{"device_class": "humidity", "name": "Humidity", "state_topic": "homeassistant/sensor/sensorBedroom/state", "unit_of_measurement": "%", "value_template": "{% raw %}{{ value_json.humidity}}{% endraw %}" }`
 - Common state payload: `{ "temperature": 23.20, "humidity": 43.70 }`
 
-### Switches
+#### Switches
 
 Setting up a switch is similar but requires a `command_topic` as mentioned in the [MQTT switch documentation](/integrations/switch.mqtt/).
 
@@ -326,17 +323,16 @@ Setting up a switch is similar but requires a `command_topic` as mentioned in th
 - Payload:  `{"name": "garden", "command_topic": "homeassistant/switch/irrigation/set", "state_topic": "homeassistant/switch/irrigation/state"}`
 
 ```bash
-mosquitto_pub -h 127.0.0.1 -p 1883 -t "homeassistant/switch/irrigation/config" \
+$ mosquitto_pub -h 127.0.0.1 -p 1883 -t "homeassistant/switch/irrigation/config" \
   -m '{"name": "garden", "command_topic": "homeassistant/switch/irrigation/set", "state_topic": "homeassistant/switch/irrigation/state"}'
 ```
-
 Set the state.
 
 ```bash
-mosquitto_pub -h 127.0.0.1 -p 1883 -t "homeassistant/switch/irrigation/set" -m ON
+$ mosquitto_pub -h 127.0.0.1 -p 1883 -t "homeassistant/switch/irrigation/set" -m ON
 ```
 
-### Abbreviating topic names
+#### Abbreviating topic names
 
 Setting up a switch using topic prefix and abbreviated configuration variable names to reduce payload length.
 
@@ -345,7 +341,7 @@ Setting up a switch using topic prefix and abbreviated configuration variable na
 - State topic: `homeassistant/switch/irrigation/state`
 - Configuration payload: `{"~": "homeassistant/switch/irrigation", "name": "garden", "cmd_t": "~/set", "stat_t": "~/state"}`
 
-### Lighting
+#### Lighting
 
 Setting up a [light that takes JSON payloads](/integrations/light.mqtt/#json-schema), with abbreviated configuration variable names:
 
@@ -367,7 +363,7 @@ Setting up a [light that takes JSON payloads](/integrations/light.mqtt/#json-sch
   }
   ```
 
-### Climate control
+#### Climate control
 
 Setting up a climate integration (heat only):
 

@@ -1,6 +1,7 @@
 ---
 title: Emoncms History
 description: Instructions on how to integrate Emoncms history into Home Assistant.
+logo: emoncms.png
 ha_category:
   - History
 ha_release: 0.31

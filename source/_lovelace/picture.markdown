@@ -66,9 +66,7 @@ Toggle entity using a service:
 ```yaml
 type: picture
 image: /local/light.png
-tap_action:
-  action: call-service
-  service: light.toggle
-  service_data:
-    entity_id: light.ceiling_lights
+service: light.toggle
+service_data:
+  entity_id: light.ceiling_lights
 ```

@@ -22,7 +22,6 @@ Available demo platforms:
 - [Cover](/integrations/cover/) (`cover`)
 - [Fan](/integrations/fan/) (`fan`)
 - [Geolocation](/integrations/geo_location/) (`geo_location`)
-- [Humidifier](/integrations/humidifier/) (`humidifier`)
 - [Image Processing](/integrations/image_processing/) (`image_processing`)
 - [Light](/integrations/light/) (`light`)
 - [Lock](/integrations/lock/) (`lock`)

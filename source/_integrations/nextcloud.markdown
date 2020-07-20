@@ -27,7 +27,7 @@ To enable the Nextcloud integration, add the following lines to your `configurat
 ```yaml
 # Example configuration.yaml entry
 nextcloud:
-  url: https://YOUR_NEXTCLOUD_URL
+  url: Https://YOUR_NEXTCLOUD_URL
   username: YOUR_USERNAME
   password: YOUR_APP_PASSWORD
 

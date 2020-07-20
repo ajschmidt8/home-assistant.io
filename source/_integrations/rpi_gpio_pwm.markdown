@@ -49,7 +49,7 @@ leds:
       description: The type of LED. Choose either `rgb`, `rgbw` or `simple`.
       required: true
       type: string
-    frequency:
+    freq:
       description: The PWM frequency.
       required: false
       default: 200

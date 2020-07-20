@@ -491,81 +491,46 @@ twitter-widget {
 
 // Configuration variables
 div.config-vars {
-  padding-bottom: 16px;
+  // Future re-design
+  // h3 {
+  //   border: 0;
+  //   border-top: 1px solid $primary-color;
+  //   padding-top: 1.4rem;
+  // }
 
-  .config-vars-item {
-    border-bottom: 1px solid #d9dbde;
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
+  dl {
+    margin-bottom: 1.5em;
 
-  .nested .config-vars-item:last-child {
-    border: none
-  }
-
-  .config-vars-label {
-    padding-bottom: 4px;
-    position: relative;
-
-    > span {
-      padding-right: 4px;
+    &.nested {
+      border-left: 1px dotted $primary-color;
+      padding-left: 6px;
     }
 
-    &:hover a.title-link::before {
-      position: absolute;
-      top: 5px;
-      left: -25px;
-      padding-right: 40px;
-      font-family: "FontAwesome";
-      font-size: 15px;
-      color: #999;
-      content: "";
+    dt {
+      font-weight: bold;
     }
-  }
 
-  .config-vars-label-name {
-    font-weight: bold;
-    font-size: 16px; 
-    color: #222222bd;
-  }
+    dd {
+      margin: 0 0 0.5em 1em;
 
-  .config-vars-type {
-    color :#8792a2;
-    font-size: 13px;
-  }
+      p.desc {
+        margin: 0;
 
-  .config-vars-required {
-    color :#8792a2;
-    font-size: 13px;
-    text-transform: lowercase;
+        span.type,
+        span.required {
+          font-style: italic;
 
-    .true {
-      color: #e56f4a;
-      text-transform: uppercase;
-      font-size: 11px;
+          &::after {
+            content: " "
+          }
+        }
+      }
+
+      p.default {
+        font-style: italic;
+        margin: 0;
+      }
     }
-  }
-
-  .config-vars-description-and-children {
-    font-size: 14px;
-    color: #4f566b;
-  }
-
-  .config-vars-description p {
-    margin: 0;
-  }
-
-  .config-vars-default {
-    padding-top: 8px;
-
-    p {
-      margin: 0;
-      display: inline;
-    }
-  }
-
-  .nested {
-    margin-left: 48px;
   }
 }
 

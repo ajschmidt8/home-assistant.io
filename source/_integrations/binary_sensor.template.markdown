@@ -141,7 +141,9 @@ binary_sensor:
 ### Switch as Sensor
 
 Some movement sensors and door/window sensors will appear as a switch. By using
-a Template Binary Sensor, the switch can be displayed as a binary sensors.
+a Template Binary Sensor, the switch can be displayed as a binary sensors. The
+original switch can then be hidden by
+[customizing](/getting-started/customizing-devices/).
 
 {% raw %}
 

@@ -191,6 +191,6 @@ This fix has been tested with a clean install of:
 
 and
 
-* Home Assistant 0.37.1
+* [Home Assistant 0.37.1](/getting-started/installation-raspberry-pi-all-in-one/)
 
 For setting up the Sense HAT's RGB LED matrix as lights within Home Assistant, please see the [Sense HAT light component](#light).

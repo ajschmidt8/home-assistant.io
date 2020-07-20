@@ -318,7 +318,7 @@ Text repeater:
         disable_notification: true
         inline_keyboard:
           - "Edit message:/edit_msg, Don't:/do_nothing"
-          - "Remove this button:/remove_button"
+          - "Remove this button:/remove button"
 ```
 
 {% endraw %}
@@ -347,11 +347,11 @@ Message editor:
         title: '*Message edit*'
         inline_keyboard:
           - "Edit message:/edit_msg, Don't:/do_nothing"
-          - "Remove this button:/remove_button"
+          - "Remove this button:/remove button"
         message: >
           Callback received from {{ trigger.event.data.from_first }}.
           Message id: {{ trigger.event.data.message.message_id }}.
-          Data: {{ trigger.event.data.data|replace("_", "\_") }}
+          Data: {{ trigger.event.data.data }}
 ```
 
 {% endraw %}
@@ -366,7 +366,7 @@ Keyboard editor:
     platform: event
     event_type: telegram_callback
     event_data:
-      command: '/remove_button'
+      command: '/remove button'
   action:
     - service: telegram_bot.answer_callback_query
       data_template:

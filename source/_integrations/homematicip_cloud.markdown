@@ -131,7 +131,6 @@ Within this delay the device registration should be completed in the App, otherw
   * Blind Actuator for brand switches (*HmIP-BBL*)
   * Blind Actuator for flush-mount (*HmIP-FBL*)
   * Garage door module for Tormatic (*HmIP-MOD_TM*)
-  * Module for Hoermann drives (*HMIP-MOD-HO*)
 
 * homematicip_cloud.light
   * Switch actuator and meter for brand switches (*HmIP-BSM*)

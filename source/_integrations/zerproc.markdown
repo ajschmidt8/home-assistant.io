@@ -1,14 +1,11 @@
 ---
-title: Zerproc
+title: Zerproc Bluetooth Lights
 description: Instructions for integrating Zerproc bluetooth lights within Home Assistant.
 ha_category:
   - Light
 ha_iot_class: Local Polling
-ha_release: '0.110'
+ha_release: "0.110"
 ha_domain: zerproc
-ha_codeowners:
-  - '@emlove'
-ha_config_flow: true
 ---
 
 This integration discovers nearby Zerproc lights and adds them to Home Assistant.

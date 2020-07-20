@@ -37,8 +37,13 @@ api_key:
   type: string
 accounts:
   required: true
-  description: List of 64-bit SteamIDs.
-  type: list
+  description: List of accounts.
+  type: map
+  keys:
+    account_id:
+      required: true
+      description: The 64-bit SteamID.
+      type: string
 {% endconfiguration %}
 
 ## Examples

@@ -70,6 +70,7 @@ Use the `remote.learn_command` service to learn new commands.
 | `device`               | no       | Name of the device to control.            |
 | `command`              | no       | Names of the commands to learn.           |
 | `alternative`          | yes      | Toggle commands?                          |
+| `timeout`              | yes      | Timeout in seconds to learn each command. |
 
 Example 1: Learn a single command
 
@@ -187,7 +188,7 @@ To fix the problem, you need to follow these steps:
 - Remove the device from Broadlink App
 - Factory reset the device
 - Add the device to your local network using the app
-- Do not set up a cloud (not now, not ever). This means that you don't have to complete the setup in the app, configure only the Wi-Fi and don't add the Broadlink device to the app
+- Do not set up a cloud (not now, not ever)
 - Specify the correct device type in the configuration file
 
 Example 1: Set up the new RM Mini 3 using remote platform
@@ -362,6 +363,11 @@ timeout:
   description: Timeout in seconds for the connection to the device.
   required: false
   type: integer
+retry:
+  description: Retry times for fetch data if failed.
+  required: false
+  type: integer
+  default: 2
 friendly_name:
   description: The name used to display the switch in the frontend.
   required: false
@@ -429,6 +435,7 @@ switch:
     host: 192.168.1.2
     mac: 'B4:43:0D:CC:0F:58'
     timeout: 15
+    retry: 5
     switches:
       # Will work on most Phillips TVs:
       tv_phillips:
@@ -476,6 +483,7 @@ switch:
     host: IP_ADDRESS
     mac: 'MAC_ADDRESS'
     type:  sp2
+    retry: 5
     friendly_name: 'Humidifier'
 ```
 

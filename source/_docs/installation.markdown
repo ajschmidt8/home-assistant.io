@@ -67,6 +67,49 @@ If you use these install methods, we assume that you know how to manage and admi
 
 ## Community provided guides
 
-Additional installation guides can be found on our [Community Forum](https://community.home-assistant.io/tags/c/community-guides/51/installation).
+These guides are provided as-is. Some of these install methods are more limited than the methods above. Some integrations may not work due to limitations of the platform or because required Python packages aren't available for that platform.
 
-These Community Guides are provided as-is. Some of these install methods are more limited than the methods above. Some integrations may not work due to limitations of the platform.
+<div class="text-center hass-option-cards" markdown="0">
+  <a class='option-card' href='/docs/installation/armbian/'>
+    <div class='img-container'>
+      <img src='/images/supported_brands/armbian.png' />
+    </div>
+    <div class='title'>armbian</div>
+  </a>
+  <a class='option-card' href='/docs/installation/archlinux/'>
+    <div class='img-container'>
+      <img src='/images/supported_brands/archlinux.png' />
+    </div>
+    <div class='title'>ArchLinux</div>
+  </a>
+  <a class='option-card' href='/docs/installation/fedora/'>
+    <div class='img-container'>
+      <img src='/images/supported_brands/fedora.png' />
+    </div>
+    <div class='title'>Fedora</div>
+  </a>
+  <a class='option-card' href='/docs/installation/centos/'>
+    <div class='img-container'>
+      <img src='/images/supported_brands/centos.png' />
+    </div>
+    <div class='title'>CentOS/RHEL</div>
+  </a>
+  <a class='option-card' href='/docs/installation/macos/'>
+    <div class='img-container'>
+      <img src='https://brands.home-assistant.io/ios/icon.png' />
+    </div>
+    <div class='title'>macOS</div>
+  </a>
+  <a class='option-card' href='/docs/installation/synology/'>
+    <div class='img-container'>
+      <img src='https://brands.home-assistant.io/synology/logo.png' />
+    </div>
+    <div class='title'>Synology</div>
+  </a>
+  <a class='option-card' href='/docs/installation/freenas/'>
+    <div class='img-container'>
+      <img src='/images/supported_brands/freenas.png' />
+    </div>
+    <div class='title'>FreeNAS</div>
+  </a>
+</div>

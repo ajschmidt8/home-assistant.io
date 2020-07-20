@@ -8,7 +8,6 @@ ha_category:
 ha_iot_class: Cloud Polling
 ha_codeowners:
   - '@bollewolle'
-  - '@Emilv2'
 ha_domain: delijn
 ---
 

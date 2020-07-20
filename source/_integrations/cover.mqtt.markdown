@@ -242,7 +242,6 @@ In this section you will find some real-life examples of how to use this platfor
 The example below shows a full configuration for a cover without tilt with state topic only.
 
 {% raw %}
-
 ```yaml
 # Example configuration.yaml entry
 cover:
@@ -265,7 +264,6 @@ cover:
     optimistic: false
     value_template: '{{ value.x }}'
 ```
-
 {% endraw %}
 
 ### Full configuration position topic without tilt
@@ -273,7 +271,6 @@ cover:
 The example below shows a full configuration for a cover without tilt with position topic.
 
 {% raw %}
-
 ```yaml
 # Example configuration.yaml entry
 cover:
@@ -295,7 +292,6 @@ cover:
     optimistic: false
     value_template: '{{ value.x }}'
 ```
-
 {% endraw %}
 
 ### Full configuration
@@ -303,7 +299,6 @@ cover:
 The example below shows a full configuration for a cover.
 
 {% raw %}
-
 ```yaml
 # Example configuration.yaml entry
 cover:
@@ -333,11 +328,10 @@ cover:
     tilt_closed_value: 70
     tilt_opened_value: 180
 ```
-
 {% endraw %}
 
 To test, you can use the command line tool `mosquitto_pub` shipped with `mosquitto` or the `mosquitto-clients` package to send MQTT messages. This allows you to operate your cover manually:
 
 ```bash
-mosquitto_pub -h 127.0.0.1 -t home-assistant/cover/set -m "CLOSE"
+$  mosquitto_pub -h 127.0.0.1 -t home-assistant/cover/set -m "CLOSE"
 ```

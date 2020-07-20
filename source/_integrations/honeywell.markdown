@@ -26,16 +26,22 @@ climate:
   - platform: honeywell
     username: YOUR_USERNAME
     password: YOUR_PASSWORD
+    region: us
 ```
 
 {% configuration %}
 username:
-  description: Email address of an account with access to the TCC website.
+  description: Email address of an account with access the TCC website for your region.
   required: true
   type: string
 password:
   description: Password for the account.
   required: true
+  type: string
+region:
+  description: Region identifier.
+  required: true
+  default: us
   type: string
 away_cool_temperature:
   description: "Cooling setpoint when away mode is on, in degrees Fahrenheit."
@@ -47,12 +53,4 @@ away_heat_temperature:
   required: false
   default: 61
   type: integer
-thermostat:
-  description: ID of thermostat to restrict the integration to.
-  required: false
-  type: string
-location:
-  description: ID of location to restrict the integration to.
-  required: false
-  type: string
 {% endconfiguration %}

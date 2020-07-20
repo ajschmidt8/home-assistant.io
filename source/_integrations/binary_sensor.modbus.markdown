@@ -74,14 +74,13 @@ Example a sensor with a 10 seconds scan interval:
 binary_sensor:
   - platform: modbus
     scan_interval: 10
-    inputs:
+    coils:
       - name: Sensor1
         hub: hub1
         slave: 1
-        address: 100
+        coil: 100
       - name: Sensor2
         hub: hub1
         slave: 1
-        address: 110
-        input_type: discrete_input
+        coil: 110
 ```
