@@ -18,116 +18,70 @@ Please visit the [AlarmDecoder website](https://www.alarmdecoder.com/) for furth
 
 There is currently support for the following device types within Home Assistant:
 
-- Binary Sensor: Reports on zone status
-- Sensor: Emulates a keypad display
 - [Alarm Control Panel](#alarm-control-panel): Reports on alarm status, and can be used to arm/disarm the system
+- Sensor: Emulates a keypad display
+- Binary Sensor: Reports on zone status
 
 This is a fully event-based component. Any event sent by the AlarmDecoder device will be immediately reflected within Home Assistant.
 
+## Set Up
+
+AlarmDecoder can be set up via the **Integrations** section of the **Configuration** page. Click the `+` sign and select *AlarmDecoder* from the list.
+
+You will be prompted to select a protocol (i.e. `socket` or `serial`). Depending on your selection, you will be asked for the following connection information:
+
+- **socket**:
+  - **host** - the hostname or IP address of the machine connected to the AlarmDecoder device
+  - **port** - the port that AlarmDecoder is accessible on (i.e. `10000`)
+- **serial**:
+  - **path** - the path to the AlarmDecoder device (i.e. `/dev/ttyUSB0`)
+  - **baud rate** - the baud rate of the AlarmDecoder device (i.e. `115200`)
+
+
 ## Configuration
 
-An `alarmdecoder` section must be present in the `configuration.yaml` file and contain the following options as required:
+Once AlarmDecoder has been set up according to the instructions above, the arming settings and zones can be configured by selecting *Options* on the *AlarmDecoder* card on the **Configuration -> Integrations** page.
 
-```yaml
-# Example configuration.yaml entry
-alarmdecoder:
-  device:
-    type: socket
-    host: 192.168.1.20
-    port: 10000
-  panel_display: false
-  zones:
-    01:
-      name: 'Smoke Detector'
-      type: 'smoke'
-      rfid: '0123456'
-    02:
-      name: 'Front Door'
-      type: 'opening'
-```
+### Arming Settings
 
-{% configuration %}
-device:
-  description: List of variables for the AlarmDecoder device.
-  required: true
-  type: list
-  keys:
-    type:
-      description: "The type of AlarmDecoder device: socket, serial or USB."
-      required: true
-      default: socket
-      type: string
-    host:
-      description: The IP address of the AlarmDecoder device on your home network, if using socket type.
-      required: false
-      default: localhost
-      type: string
-    port:
-      description: The IP address of the AlarmDecoder device on your home network, if using socket type.
-      required: false
-      default: 10000
-      type: integer
-    path:
-      description: The path of the AlarmDecoder device, if using serial type.
-      required: false
-      default: "/dev/ttyUSB0"
-      type: string
-    baudrate:
-      description: The baud rate of the AlarmDecoder device, if using serial type.
-      required: false
-      default: 115200
-      type: string
-panel_display:
-  description: Create a sensor called `sensor.alarm_display` to match the Alarm Keypad display.
-  required: false
-  default: false
-  type: boolean
-autobypass:
-  description: "**Honeywell only.** Set to `true`, to automatically bypass all open zones (sending `6#`) when arming. This will require a code to be entered even if `code_arm_required` is set to `false`."
-  required: false
-  default: false
-  type: boolean
-code_arm_required:
-  description: "Set to `false` to enable arming without having to enter a code."
-  required: false
-  default: true
-  type: boolean
-alt_night_mode:
-  description: "For Honeywell systems, set to `true` to enable *Night-Stay* mode instead of *Instant* mode for night arming. For DSC systems, set to `true` to enable *No-Entry* mode instead of *Stay* mode for night arming. For both systems, whenever this option is set to `true`, a code will be required for night arming **regardless of the `code_arm_required` setting.** See [Arming Key Sequences](#arming-key-sequences) section below for more information."
-  required: false
-  default: false
-  type: boolean
-zones:
-  description: "AlarmDecoder has no way to tell us which zones are actually in use, so each zone must be configured in Home Assistant. For each zone, at least a name must be given. For more information on the available zone types, take a look at the [Binary Sensor](/integrations/alarmdecoder) documentation. *Note: If no zones are specified, Home Assistant will not load any binary_sensor integrations.*"
-  required: false
-  type: list
-  keys:
-    name:
-      description: A name for the zone.
-      required: true
-      type: string
-    type:
-      description: "A type for the zone. Here you can find a list of [Device Classes](/integrations/binary_sensor/#device-class)."
-      required: false
-      default: opening
-      type: string
-    rfid:
-      description: The RF serial-number associated with RF zones. Providing this field allows Home Assistant to associate raw sensor data to a given zone, allowing direct monitoring of the state, battery, and supervision status.
-      required: false
-      type: string
-    loop:
-      description: The loop number associated with RF zones (1, 2, 3, or 4). Providing this field allows Home Assistant to read open/closed status from the raw sensor data in addition to from the panel display, meaning it can correctly show a bypassed RF zone as open or closed when the alarm is armed. (This is an alternative to relayaddr/relaychan below for RF zones.)
-      required: false
-      type: integer
-    relayaddr:
-      description: "Address of the relay or zone expander board to associate with the zone. (ex: 12, 13, 14, or 15). Typically used in cases where a panel will not send bypassed zones such as motion during an armed home state, the Vista 20P is an example of this. AlarmDecoder can emulate a zone expander board and the panel can be programmed to push zone events to this virtual expander. This allows the bypassed zone binary sensors to be utilized. One example is using bypassed motion sensors at night for motion-based automated lights while the system is armed with the motion sensor bypassed."
-      required: inclusive
-      type: integer
-    relaychan:
-      description: "Channel of the relay or zone expander board to associate with the zone. (ex: 1, 2, 3, or 4 for relay expander boards, 1 - 8 for zone expander boards)"
-      required: inclusive
-      type: integer
-{% endconfiguration %}
+There are currently 3 arming settings for AlarmDecoder (shown below). Changes to the arming settings should take effect immediately and will **not** require a Home Assistant reboot.
+
+- **Alternative Night Mode** - For Honeywell systems, set to `true` to enable *Night-Stay* mode instead of *Instant* mode for night arming. For DSC systems, set to `true` to enable *No-Entry* mode instead of *Stay* mode for night arming. For both systems, whenever this option is set to `true`, a code will be required for night arming **regardless of the *Code Required for Arming* setting.** See [Arming Key Sequences](#arming-key-sequences) section below for more information.
+- **Auto Bypass on Arm** - (Honeywell only) Set to `true` to automatically bypass all open zones by sending `code` + `6#` before arming. This setting requires a code only if there are faulted zones when arming.
+- **Code Required for Arming** - Set to `false` to enable arming without a code. See [Arming Key Sequences](#arming-key-sequences) section below for more information.
+
+### Zones
+
+Zones can be added, edited, and removed through the option forms. **Home Assistant will need to be rebooted for zone changes to take effect.** You can, however, add/edit/remove multiple zones before rebooting and all of the changes will be applied after a single reboot.
+
+Each zone that's added to AlarmDecoder will have its own [binary sensor](https://www.home-assistant.io/integrations/binary_sensor/) created.
+
+#### Adding a New Zone
+
+When prompted, enter the number of the zone you'd like to add. Press *Submit* to move to the next screen where you'll be prompted for the [zone settings](#zone-settings). Press *Submit* again to save. The new zone will be added to Home Assistant upon the next reboot.
+
+**Note:** The zone number that was entered will appear as an attribute on the binary sensor entity that's created in order to easily edit the zone settings at a later time.
+
+#### Editing an Existing Zone
+
+When prompted, enter the number of the zone you'd like to edit. Press *Submit* to move to the next screen where the existing zone settings will be pre-filled. Edit the zone settings and press *Submit* to save the changes. The new zone details will take effect upon the next Home Assistant reboot.
+
+#### Removing an Existing Zone
+
+When prompted, enter the number of the zone you'd like to remove. Press *Submit* to move to the next screen where the existing zone settings will be pre-filled. Clear the *Zone Name* field and press *Submit*. The zone will be successfully removed upon the next Home Assistant reboot.
+
+#### Zone Settings
+
+The settings for zones are described below:
+
+- **Zone Name** - a name for the zone
+- **Zone Type** - the type of sensor (see [Device Classes](https://www.home-assistant.io/integrations/binary_sensor/#device-class))
+- **RF Serial** - (optional) The RF serial-number associated with wireless RF zones. Providing this field allows Home Assistant to associate raw sensor data to a given zone, allowing direct monitoring of the state, battery, and supervision status.
+- **RF Loop** - (optional) The loop number associated with RF zones (1, 2, 3, or 4). Providing this field allows Home Assistant to read open/closed status from the raw sensor data in addition to from the panel display, meaning it can correctly show a bypassed RF zone as open or closed when the alarm is armed. (This is an alternative to relayaddr/relaychan below for RF zones.)
+- **Relay Address** - (optional) Address of the relay or zone expander board to associate with the zone. (ex: 12, 13, 14, or 15). Typically used in cases where a panel will not send bypassed zones such as motion during an armed home state, the Vista 20P is an example of this. AlarmDecoder can emulate a zone expander board and the panel can be programmed to push zone events to this virtual expander. This allows the bypassed zone binary sensors to be utilized. One example is using bypassed motion sensors at night for motion-based automated lights while the system is armed with the motion sensor bypassed.
+- **Relay Channel** - (optional) Channel of the relay or zone expander board to associate with the zone. (ex: 1, 2, 3, or 4 for relay expander boards, 1 - 8 for zone expander boards)
+
+
 
 ## Alarm Control Panel
 
@@ -142,7 +96,7 @@ There are several attributes available on the alarm panel to give you more infor
 - `programming_mode`: Set to `true` if your system is in programming mode.
 - `ready`: Set to `true` if your system is ready to be armed. Any faults, including motions sensors, will make this value `false`.
 - `zone_bypassed`: Set to `true` if your system is currently bypassing a zone.
-- `code_arm_required`: Set to the value specified in your configuration.
+- `code_arm_required`: Set to the value specified in your AlarmDecoder options.
 
 ## Services
 
@@ -150,7 +104,7 @@ The Alarm Decoder integration gives you access to several services for you to co
 
 - `alarm_arm_away`: Arms the alarm in away mode; all faults will trigger the alarm.
 - `alarm_arm_home`: Arms the alarm in stay mode; faults to the doors or windows will trigger the alarm.
-- `alarm_arm_night`: Arms the alarm according to the `alt_night_mode` configuration setting.
+- `alarm_arm_night`: Arms the alarm according to the `Alternative Night Mode` option.
 - `alarm_disarm`: Disarms the alarm from any state.
 - `alarmdecoder.alarm_keypress`: Sends a string of characters to the alarm, as if you had touched those keys on a keypad.
 - `alarmdecoder.alarm_toggle_chime`: Toggles the alarm's chime state.
